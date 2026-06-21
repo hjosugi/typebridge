@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT OR 0BSD"
+repository = "https://github.com/hjosugi/typebridge"
+authors = ["typebridge contributors"]
+rust-version = "1.74"
+
+# typebridge is "fast and dependency-light by default": the core crate pulls in
+# zero third-party dependencies. Keep it that way unless a backend adapter needs it.
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1

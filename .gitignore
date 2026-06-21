@@ -1,0 +1,15 @@
+# Build outputs
+target/
+dist/
+build/
+out/
+node_modules/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.log
+*.rs.bk
+
+# Personal learning notes — kept local, not committed
+/GUIDE.md

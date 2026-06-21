@@ -1,0 +1,18 @@
+[package]
+name = "typebridge"
+version = "0.0.0"
+description = "Backend-agnostic facade that turns serde Rust types into a TypeScript API surface (types, command wrappers, drift-check). MVP wraps ts-rs; designed for Tauri + extension SDKs."
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+readme = "../../README.md"
+keywords = ["typescript", "codegen", "serde", "tauri", "types"]
+categories = ["development-tools", "encoding"]
+
+# Core stays zero-dependency on purpose. Backends (ts-rs, specta, schemars) live in
+# separate adapter crates so consumers only pay for the backend they pick.
+[dependencies]
+
+[dev-dependencies]
