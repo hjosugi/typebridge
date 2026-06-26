@@ -104,12 +104,13 @@ The MVP covers the `irodori-table` desktop boundary:
 ## Development
 
 ```bash
-cargo test
-cargo package --list
+npm run check
+cargo package -p typeship
 ```
 
-`cargo package --list` is a useful packaging smoke test because the crate
-manifest points at this README.
+`npm run check` runs formatting, all workspace tests, clippy, and the committed
+sample drift checks. `cargo package -p typeship` is a useful packaging smoke test
+because the core crate manifest points at this README.
 
 ## Release
 

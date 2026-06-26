@@ -20,6 +20,8 @@ cargo clippy --workspace --all-targets -- -D warnings
 ```
 
 If Node.js is available, `npm run check` runs the same local checks.
+CI runs `npm run check` on every push and pull request, plus a core crate
+packaging smoke test.
 
 ## Design rules
 

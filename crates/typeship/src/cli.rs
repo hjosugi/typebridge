@@ -152,6 +152,7 @@ fn output_path<'a>(
 mod tests {
     use super::*;
     use crate::Command;
+    use std::path::Path;
 
     fn sample() -> Bridge {
         Bridge::tauri().command(Command::new("ping", "boolean"))
@@ -159,6 +160,10 @@ mod tests {
 
     fn arg(s: &str) -> Vec<String> {
         s.split_whitespace().map(String::from).collect()
+    }
+
+    fn path_arg(path: &Path) -> String {
+        path.display().to_string()
     }
 
     #[test]
@@ -201,7 +206,7 @@ mod tests {
         let dir = std::env::temp_dir().join("typeship-cli-test");
         let _ = std::fs::remove_dir_all(&dir);
         let path = dir.join("api.ts");
-        let path_str = path.to_str().unwrap().to_string();
+        let path_str = path_arg(&path);
 
         // check before write -> missing -> exit 1
         let pre = execute(&["check".into(), path_str.clone()], &sample(), "unused.ts");
@@ -218,7 +223,7 @@ mod tests {
         assert_eq!(ok.code, 0, "{}", ok.message);
 
         // tamper -> drift -> exit 1
-        std::fs::write(&path, "// tampered\n").unwrap();
+        std::fs::write(&path, "// tampered\n").expect("tamper generated file");
         let drift = execute(&["check".into(), path_str], &sample(), "unused.ts");
         assert_eq!(drift.code, 1, "{}", drift.message);
         assert!(drift.message.contains("stale"));
@@ -231,7 +236,7 @@ mod tests {
         let dir = std::env::temp_dir().join("typeship-cli-default");
         let _ = std::fs::remove_dir_all(&dir);
         let path = dir.join("default.ts");
-        let path_str = path.to_str().unwrap().to_string();
+        let path_str = path_arg(&path);
 
         let w = execute(&arg("write"), &sample(), &path_str);
         assert_eq!(w.code, 0, "{}", w.message);

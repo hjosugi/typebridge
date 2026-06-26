@@ -8,6 +8,12 @@
 use typeship::ir::{Decl, Field, TsType};
 use typeship::{Arg, Bridge, Command, Transport};
 
+fn index_of(haystack: &str, needle: &str) -> usize {
+    haystack
+        .find(needle)
+        .unwrap_or_else(|| panic!("expected to find {needle:?} in:\n{haystack}"))
+}
+
 // ---- TsType nesting & precedence ---------------------------------------------
 
 #[test]
@@ -168,9 +174,9 @@ fn decl_order_is_preserved() {
     let b = Decl::alias("B", TsType::number());
     let c = Decl::alias("C", TsType::boolean());
     let ts = Bridge::tauri().decls([&a, &b, &c]).render().contents;
-    let ia = ts.find("type A").unwrap();
-    let ib = ts.find("type B").unwrap();
-    let ic = ts.find("type C").unwrap();
+    let ia = index_of(&ts, "type A");
+    let ib = index_of(&ts, "type B");
+    let ic = index_of(&ts, "type C");
     assert!(ia < ib && ib < ic, "declaration order not preserved:\n{ts}");
 }
 
@@ -205,8 +211,8 @@ fn assert_never_is_emitted_last() {
         .with_assert_never(true)
         .render()
         .contents;
-    let i_cmd = ts.find("export function ping").unwrap();
-    let i_assert = ts.find("export function assertNever").unwrap();
+    let i_cmd = index_of(&ts, "export function ping");
+    let i_assert = index_of(&ts, "export function assertNever");
     assert!(i_cmd < i_assert, "assertNever should be last:\n{ts}");
 }
 
