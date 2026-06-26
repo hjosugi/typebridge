@@ -17,6 +17,7 @@ use std::path::Path;
 use crate::check::CheckOutcome;
 use crate::command::{Command, Transport};
 use crate::ir::Decl;
+use crate::ts::TsModule;
 
 /// The default header stamped onto generated files. Mirrors the convention the
 /// irodori desktop app already uses for its `ts-rs` output, so a swap to
@@ -106,32 +107,28 @@ impl Bridge {
 
     /// Render the assembled module into a [`Rendered`] value.
     pub fn render(&self) -> Rendered {
-        // Blocks are joined with a single blank line between them.
-        let mut blocks: Vec<String> = Vec::new();
-
-        blocks.push(self.header.clone());
+        let mut module = TsModule::new();
+        module.push(self.header.clone());
 
         if !self.commands.is_empty() {
             if let Some(import) = self.transport.import_line() {
-                blocks.push(import.to_string());
+                module.push(import);
             }
         }
 
         for decl in &self.decls {
-            // Each decl already ends in a newline; trim it so the join controls spacing.
-            blocks.push(decl.render().trim_end().to_string());
+            module.push_rendered(decl.render());
         }
 
         for command in &self.commands {
-            blocks.push(command.render(self.transport).trim_end().to_string());
+            module.push_rendered(command.render(self.transport));
         }
 
         if self.emit_assert_never {
-            blocks.push(ASSERT_NEVER.trim_end().to_string());
+            module.push_rendered(ASSERT_NEVER);
         }
 
-        // One trailing newline; deterministic and formatter-friendly.
-        let contents = format!("{}\n", blocks.join("\n\n"));
+        let contents = module.finish();
         Rendered { contents }
     }
 }

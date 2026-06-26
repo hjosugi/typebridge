@@ -20,7 +20,7 @@
 //! away the totality guarantee that makes sum types worth sharing.
 
 use crate::naming::to_camel_case;
-use crate::ts::string_literal;
+use crate::ts::{doc_comment, string_literal};
 
 /// A TypeScript type expression.
 ///
@@ -246,7 +246,7 @@ impl Field {
         let opt = if self.optional { "?" } else { "" };
         let line = format!("{indent}{}{}: {};", self.name, opt, self.ty.render());
         match &self.docs {
-            Some(docs) => format!("{indent}/** {docs} */\n{line}"),
+            Some(docs) => format!("{indent}{}\n{line}", doc_comment(docs)),
             None => line,
         }
     }
@@ -328,7 +328,8 @@ impl Decl {
     pub fn render(&self) -> String {
         let mut out = String::new();
         if let Some(docs) = &self.docs {
-            out.push_str(&format!("/** {docs} */\n"));
+            out.push_str(&doc_comment(docs));
+            out.push('\n');
         }
         match &self.body {
             DeclBody::Alias(ty) => {

@@ -13,7 +13,7 @@
 
 use crate::ir::TsType;
 use crate::naming::to_camel_case;
-use crate::ts::string_literal;
+use crate::ts::{doc_comment, string_literal};
 
 /// How a [`Command`] reaches the backend.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -180,7 +180,8 @@ impl Command {
 
         let mut out = String::new();
         if let Some(docs) = &self.docs {
-            out.push_str(&format!("/** {docs} */\n"));
+            out.push_str(&doc_comment(docs));
+            out.push('\n');
         }
         out.push_str(&format!(
             "export function {name}({params}): Promise<{ret}> {{\n{body}\n}}\n"

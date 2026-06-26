@@ -31,6 +31,35 @@ pub(crate) fn string_literal(value: &str) -> String {
     out
 }
 
+/// Render a single-line JSDoc comment.
+pub(crate) fn doc_comment(docs: &str) -> String {
+    format!("/** {docs} */")
+}
+
+/// A deterministic TypeScript module assembled from already-rendered blocks.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub(crate) struct TsModule {
+    blocks: Vec<String>,
+}
+
+impl TsModule {
+    pub(crate) fn new() -> Self {
+        Self::default()
+    }
+
+    pub(crate) fn push(&mut self, block: impl Into<String>) {
+        self.blocks.push(block.into());
+    }
+
+    pub(crate) fn push_rendered(&mut self, block: impl AsRef<str>) {
+        self.push(block.as_ref().trim_end());
+    }
+
+    pub(crate) fn finish(self) -> String {
+        format!("{}\n", self.blocks.join("\n\n"))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -51,5 +80,18 @@ mod tests {
     #[test]
     fn preserves_printable_unicode() {
         assert_eq!(string_literal("\u{00FC}ber"), "\"\u{00FC}ber\"");
+    }
+
+    #[test]
+    fn module_blocks_are_separated_and_terminated_once() {
+        let mut module = TsModule::new();
+        module.push("// header");
+        module.push_rendered("export type A = string;\n");
+        assert_eq!(module.finish(), "// header\n\nexport type A = string;\n");
+    }
+
+    #[test]
+    fn doc_comment_is_single_line_jsdoc() {
+        assert_eq!(doc_comment("hello"), "/** hello */");
     }
 }
