@@ -46,6 +46,29 @@ assert!(ts.contents.contains(
 - `crates/typeship-ts-rs` — the [`ts-rs`](https://github.com/Aleph-Alpha/ts-rs)
   backend adapter. `decl::<T>()` lowers a `#[derive(TS)]` type into a typeship
   declaration. A `specta` / `schemars` adapter could sit alongside it.
+- `samples/basic-ir` — a tiny transport-agnostic API generated from hand-built
+  `typeship` IR.
+- `samples/tauri-ts-rs` — a Tauri-style `invoke` API generated from `ts-rs`
+  derives plus command metadata.
+
+## Samples
+
+Regenerate the committed sample bindings:
+
+```sh
+npm run samples:write
+```
+
+Check that the committed sample bindings are still up to date:
+
+```sh
+npm run samples:check
+```
+
+The generated files live at:
+
+- `samples/basic-ir/generated/api.ts`
+- `samples/tauri-ts-rs/generated/api.ts`
 
 ## Generating in CI
 

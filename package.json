@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "cargo fmt --all --check && cargo test --workspace && cargo clippy --workspace --all-targets -- -D warnings",
+    "check": "cargo fmt --all --check && cargo test --workspace && cargo clippy --workspace --all-targets -- -D warnings && npm run samples:check",
+    "samples:write": "cargo run -p typeship-sample-basic-ir -- write && cargo run -p typeship-sample-tauri-ts-rs -- write",
+    "samples:check": "cargo run -p typeship-sample-basic-ir -- check && cargo run -p typeship-sample-tauri-ts-rs -- check",
     "release:patch": "node tools/release.mjs patch",
     "release:minor": "node tools/release.mjs minor",
     "release:major": "node tools/release.mjs major"

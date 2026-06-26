@@ -1,0 +1,12 @@
+[package]
+name = "typeship-sample-tauri-ts-rs"
+version = "0.0.0"
+publish = false
+edition.workspace = true
+license.workspace = true
+rust-version = "1.78.0"
+
+[dependencies]
+typeship = { path = "../../crates/typeship" }
+typeship-ts-rs = { path = "../../crates/typeship-ts-rs" }
+ts-rs = "12"

@@ -142,6 +142,22 @@ name = "typeship"
 version = "0.1.2"
 
 [[package]]
+name = "typeship-sample-basic-ir"
+version = "0.0.0"
+dependencies = [
+ "typeship",
+]
+
+[[package]]
+name = "typeship-sample-tauri-ts-rs"
+version = "0.0.0"
+dependencies = [
+ "ts-rs",
+ "typeship",
+ "typeship-ts-rs",
+]
+
+[[package]]
 name = "typeship-ts-rs"
 version = "0.1.2"
 dependencies = [

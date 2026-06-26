@@ -41,6 +41,9 @@ jobs:
       - name: Run clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
 
+      - name: Check samples
+        run: npm run samples:check
+
       - name: Package core crate
         run: cargo package -p typeship
 
