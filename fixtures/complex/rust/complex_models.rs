@@ -4,8 +4,8 @@
 // Use it when adding serde-aware backend support through specta, schemars,
 // serde-reflection, or a custom derive.
 //
-// Expected TypeScript direction is documented in
-// docs/future-serde-edge-cases.md.
+// Expected TypeScript direction is documented in docs/design-fp-principles.md
+// and docs/irodori-typeship-handoff.md.
 
 use std::collections::BTreeMap;
 

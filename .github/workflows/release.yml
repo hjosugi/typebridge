@@ -32,17 +32,8 @@ jobs:
       - name: Check release tag
         run: node tools/check-release-tag.mjs "${{ github.ref_name }}"
 
-      - name: Check formatting
-        run: cargo fmt --all --check
-
-      - name: Run tests
-        run: cargo test --workspace
-
-      - name: Run clippy
-        run: cargo clippy --workspace --all-targets -- -D warnings
-
-      - name: Check samples
-        run: npm run samples:check
+      - name: Run all checks
+        run: npm run check
 
       - name: Package core crate
         run: cargo package -p typeship

@@ -145,11 +145,14 @@ fn void_command_with_args() {
 }
 
 #[test]
-fn fetch_transport_with_args_is_untyped_request() {
+fn fetch_transport_with_args_uses_generic_request() {
     let ts = Command::new("run", "Result")
         .arg(Arg::new("sql", TsType::string()))
         .render(Transport::Fetch);
-    assert!(ts.contains("return request(\"run\", { sql });"), "{ts}");
+    assert!(
+        ts.contains("return request<Result>(\"run\", { sql });"),
+        "{ts}"
+    );
 }
 
 #[test]

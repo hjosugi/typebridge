@@ -51,6 +51,16 @@ assert!(ts.contents.contains(
 - `samples/tauri-ts-rs` — a Tauri-style `invoke` API generated from `ts-rs`
   derives plus command metadata.
 
+## Use outside irodori-table
+
+`typeship` is not tied to `irodori-table`. That app is the first real boundary
+the crate was checked against, but the core API is backend- and transport-light:
+
+- use `Bridge::tauri()` for Tauri `invoke<T>` wrappers;
+- use `Bridge::fetch()` for a generic `request<T>(command, payload)` client;
+- feed declarations from `typeship-ts-rs`, another future adapter, or hand-built
+  `Decl` / `TsType` values.
+
 ## Samples
 
 Regenerate the committed sample bindings:
@@ -91,7 +101,8 @@ cargo run -p typeship-ts-rs --example generate -- check /tmp/api.ts
 
 ## Current Scope
 
-The MVP covers the `irodori-table` desktop boundary:
+The MVP was shaped by the `irodori-table` desktop boundary, while keeping the
+surface reusable for other Rust + TypeScript applications:
 
 - closed string-literal unions for Rust enums;
 - interfaces for command payload structs;

@@ -58,7 +58,7 @@ fn fetch_transport_is_kept_transport_agnostic() {
 
     assert!(!module.contains("@tauri-apps/api/core"), "{module}");
     assert!(
-        module.contains("return request(\"extension_ping\", { extensionId });"),
+        module.contains("return request<unknown>(\"extension_ping\", { extensionId });"),
         "{module}"
     );
 }

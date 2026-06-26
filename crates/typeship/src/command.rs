@@ -20,7 +20,7 @@ use crate::ts::string_literal;
 pub enum Transport {
     /// Tauri `invoke("cmd", args)` from `@tauri-apps/api/core`.
     Tauri,
-    /// A generic async `request("cmd", args)` helper the consumer supplies — a
+    /// A generic async `request<T>("cmd", args)` helper the consumer supplies — a
     /// seam for HTTP / WebSocket transports without committing typeship to one.
     Fetch,
 }
@@ -175,7 +175,7 @@ impl Command {
 
         let body = match transport {
             Transport::Tauri => format!("  return invoke<{ret}>({key}{payload});"),
-            Transport::Fetch => format!("  return request({key}{payload});"),
+            Transport::Fetch => format!("  return request<{ret}>({key}{payload});"),
         };
 
         let mut out = String::new();
@@ -268,7 +268,7 @@ mod tests {
     #[test]
     fn fetch_transport_uses_request_helper() {
         let ts = Command::new("ping", "boolean").render(Transport::Fetch);
-        assert!(ts.contains("return request(\"ping\");"), "{ts}");
+        assert!(ts.contains("return request<boolean>(\"ping\");"), "{ts}");
     }
 
     #[test]

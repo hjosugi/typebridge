@@ -94,25 +94,25 @@ export interface WorkspaceSnapshot {
 }
 
 export function workspaceSnapshot(): Promise<WorkspaceSnapshot> {
-  return request("workspace_snapshot");
+  return request<WorkspaceSnapshot>("workspace_snapshot");
 }
 
 /** Open a connection without exposing secrets to the frontend type surface. */
 export function openConnection(profile: ConnectionProfile, redactionPolicy: RedactionPolicy): Promise<ConnectionInfo> {
-  return request("open_connection", { profile, redactionPolicy });
+  return request<ConnectionInfo>("open_connection", { profile, redactionPolicy });
 }
 
 /** Run a batch and return a single normalized result object. */
 export function runSqlBatch(connectionId: string, statements: string[], options: RunOptions): Promise<QueryResult> {
-  return request("run_sql_batch", { connectionId, statements, options });
+  return request<QueryResult>("run_sql_batch", { connectionId, statements, options });
 }
 
 export function searchCatalog(connectionId: string, query: string, limit: number): Promise<DbObject[]> {
-  return request("search_catalog", { connectionId, query, limit });
+  return request<DbObject[]>("search_catalog", { connectionId, query, limit });
 }
 
 export function exportExtensionPackage(extensionId: string, targetPath: string): Promise<void> {
-  return request("export_extension_package", { extensionId, targetPath });
+  return request<void>("export_extension_package", { extensionId, targetPath });
 }
 
 /**

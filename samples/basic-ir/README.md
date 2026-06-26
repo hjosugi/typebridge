@@ -3,7 +3,7 @@
 This sample uses only the zero-dependency `typeship` core crate. It hand-builds
 a tiny task API with `Decl`, `Field`, `TsType`, and `Command`, then renders a
 transport-agnostic client surface that expects the TypeScript consumer to provide
-a `request(command, payload)` helper.
+a `request<T>(command, payload)` helper.
 
 From the repository root:
 

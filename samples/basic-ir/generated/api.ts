@@ -15,9 +15,9 @@ export interface Task {
 }
 
 export function listTasks(filter?: TaskFilter): Promise<Task[]> {
-  return request("list_tasks", { filter });
+  return request<Task[]>("list_tasks", { filter });
 }
 
 export function setTaskDone(taskId: string): Promise<void> {
-  return request("set_task_done", { taskId });
+  return request<void>("set_task_done", { taskId });
 }
