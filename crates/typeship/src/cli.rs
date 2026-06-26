@@ -6,11 +6,11 @@
 //!
 //! ```no_run
 //! use std::process::ExitCode;
-//! use typebridge::{Bridge, Command};
+//! use typeship::{Bridge, Command};
 //!
 //! fn main() -> ExitCode {
 //!     let bridge = Bridge::tauri().command(Command::new("workspace_snapshot", "WorkspaceSnapshot"));
-//!     typebridge::cli::run(&bridge, "src/generated/api.ts")
+//!     typeship::cli::run(&bridge, "src/generated/api.ts")
 //! }
 //! ```
 //!
@@ -64,7 +64,7 @@ impl CliResult {
 }
 
 const USAGE: &str = "\
-typebridge — assemble a TypeScript API surface from Rust types
+typeship — assemble a TypeScript API surface from Rust types
 
 USAGE:
     <bin> write [PATH]    render and write the bindings (PATH overrides the default)
@@ -157,7 +157,7 @@ mod tests {
 
     #[test]
     fn write_then_check_cycle() {
-        let dir = std::env::temp_dir().join("typebridge-cli-test");
+        let dir = std::env::temp_dir().join("typeship-cli-test");
         let _ = std::fs::remove_dir_all(&dir);
         let path = dir.join("api.ts");
         let path_str = path.to_str().unwrap().to_string();
@@ -187,7 +187,7 @@ mod tests {
 
     #[test]
     fn write_uses_default_path_when_omitted() {
-        let dir = std::env::temp_dir().join("typebridge-cli-default");
+        let dir = std::env::temp_dir().join("typeship-cli-default");
         let _ = std::fs::remove_dir_all(&dir);
         let path = dir.join("default.ts");
         let path_str = path.to_str().unwrap().to_string();

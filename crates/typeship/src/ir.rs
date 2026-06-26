@@ -261,7 +261,7 @@ pub enum DeclBody {
     /// A pre-rendered declaration string, emitted verbatim.
     ///
     /// This is the backend seam: a per-type renderer (`ts-rs`, `specta`, …) lowers
-    /// a Rust type into a finished `export …` line, and typebridge assembles around
+    /// a Rust type into a finished `export …` line, and typeship assembles around
     /// it without reinterpreting its formatting. The string is expected to be a
     /// complete, `export`-prefixed declaration (no surrounding blank lines).
     Raw(String),

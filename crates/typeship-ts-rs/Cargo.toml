@@ -1,7 +1,7 @@
 [package]
-name = "typebridge-ts-rs"
-version = "0.0.0"
-description = "ts-rs backend adapter for typebridge: lower `#[derive(TS)]` Rust types into typebridge declarations the Bridge can assemble, check, and write."
+name = "typeship-ts-rs"
+version = "0.1.0"
+description = "ts-rs backend adapter for typeship: lower `#[derive(TS)]` Rust types into typeship declarations the Bridge can assemble, check, and write."
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -13,7 +13,8 @@ keywords = ["typescript", "codegen", "ts-rs", "serde", "tauri"]
 categories = ["development-tools"]
 
 [dependencies]
-typebridge = { path = "../typebridge" }
+# Path for local dev; version is required so the crate can be published to a registry.
+typeship = { path = "../typeship", version = "0.1.0" }
 ts-rs = "12"
 
 [dev-dependencies]

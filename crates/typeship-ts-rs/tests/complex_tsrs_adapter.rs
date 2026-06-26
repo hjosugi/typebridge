@@ -1,8 +1,8 @@
 use std::collections::BTreeMap;
 
 use ts_rs::TS;
-use typebridge::{Bridge, Command};
-use typebridge_ts_rs::decl;
+use typeship::{Bridge, Command};
+use typeship_ts_rs::decl;
 
 #[derive(TS)]
 #[ts(rename_all = "lowercase")]
@@ -59,7 +59,7 @@ fn ts_rs_adapter_keeps_closed_enum_union() {
 }
 
 #[test]
-fn ts_rs_adapter_can_mix_with_typebridge_commands() {
+fn ts_rs_adapter_can_mix_with_typeship_commands() {
     let module = Bridge::tauri()
         .decl(&decl::<ComplexStatus>())
         .decl(&decl::<ComplexColumn>())
@@ -69,8 +69,17 @@ fn ts_rs_adapter_can_mix_with_typebridge_commands() {
         .render()
         .contents;
 
-    assert!(module.contains("import { invoke } from \"@tauri-apps/api/core\";"), "{module}");
+    assert!(
+        module.contains("import { invoke } from \"@tauri-apps/api/core\";"),
+        "{module}"
+    );
     assert!(module.contains("export type ComplexResult ="), "{module}");
-    assert!(module.contains("export function complexResult(): Promise<ComplexResult>"), "{module}");
-    assert!(module.contains("export function assertNever(value: never): never"), "{module}");
+    assert!(
+        module.contains("export function complexResult(): Promise<ComplexResult>"),
+        "{module}"
+    );
+    assert!(
+        module.contains("export function assertNever(value: never): never"),
+        "{module}"
+    );
 }

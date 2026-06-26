@@ -1,13 +1,10 @@
 use std::fs;
 
-use typebridge::{Bridge, Command};
+use typeship::{Bridge, Command};
 
 #[test]
 fn generated_file_write_check_and_drift_cycle_is_stable() {
-    let dir = std::env::temp_dir().join(format!(
-        "typebridge-complex-drift-{}",
-        std::process::id()
-    ));
+    let dir = std::env::temp_dir().join(format!("typeship-complex-drift-{}", std::process::id()));
     let path = dir.join("nested").join("api.ts");
 
     let rendered = Bridge::tauri()
@@ -16,7 +13,10 @@ fn generated_file_write_check_and_drift_cycle_is_stable() {
         .render();
 
     let missing = rendered.check(&path).expect("missing check");
-    assert!(!missing.is_up_to_date(), "missing file must not be up to date");
+    assert!(
+        !missing.is_up_to_date(),
+        "missing file must not be up to date"
+    );
 
     rendered.write(&path).expect("write generated file");
     assert!(path.exists(), "write must create parent directories");
@@ -24,8 +24,13 @@ fn generated_file_write_check_and_drift_cycle_is_stable() {
     let ok = rendered.check(&path).expect("check written file");
     assert!(ok.is_up_to_date(), "{}", ok.summary());
 
-    fs::write(&path, rendered.contents.replace("workspaceSnapshot", "workspaceSnapshotDrift"))
-        .expect("tamper file");
+    fs::write(
+        &path,
+        rendered
+            .contents
+            .replace("workspaceSnapshot", "workspaceSnapshotDrift"),
+    )
+    .expect("tamper file");
 
     let drift = rendered.check(&path).expect("check tampered file");
     assert!(!drift.is_up_to_date(), "tampered file must drift");
@@ -36,10 +41,7 @@ fn generated_file_write_check_and_drift_cycle_is_stable() {
 
 #[test]
 fn trailing_newline_drift_is_detected() {
-    let dir = std::env::temp_dir().join(format!(
-        "typebridge-complex-newline-{}",
-        std::process::id()
-    ));
+    let dir = std::env::temp_dir().join(format!("typeship-complex-newline-{}", std::process::id()));
     let path = dir.join("api.ts");
 
     let rendered = Bridge::tauri()
@@ -57,10 +59,8 @@ fn trailing_newline_drift_is_detected() {
 
 #[test]
 fn check_does_not_mutate_committed_file() {
-    let dir = std::env::temp_dir().join(format!(
-        "typebridge-complex-readonly-{}",
-        std::process::id()
-    ));
+    let dir =
+        std::env::temp_dir().join(format!("typeship-complex-readonly-{}", std::process::id()));
     let path = dir.join("api.ts");
 
     let rendered = Bridge::tauri()

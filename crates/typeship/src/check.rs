@@ -1,7 +1,7 @@
 //! Drift checking — the anti-OpenAPI guarantee.
 //!
 //! OpenAPI's failure mode is a hand-written spec document that silently drifts
-//! from the code it claims to describe. typebridge's answer is the same one the
+//! from the code it claims to describe. typeship's answer is the same one the
 //! FP world reaches for: the generated artifact is a *pure function* of the
 //! source types, so CI can re-render and assert byte-equality against the
 //! committed file. If they differ, someone changed a Rust type without

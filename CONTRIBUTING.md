@@ -1,6 +1,6 @@
-# Contributing to typebridge
+# Contributing to typeship
 
-Thanks for helping. typebridge is small on purpose: a thin, dependency-light
+Thanks for helping. typeship is small on purpose: a thin, dependency-light
 facade that assembles a TypeScript API surface from Rust-owned types and command
 metadata. Keep changes small and well-tested, and keep the core crate free of
 third-party dependencies.
@@ -25,7 +25,7 @@ These are load-bearing; a change that breaks one needs a strong reason.
 
 - **Core stays zero-dependency.** Anything that needs `serde`, `ts-rs`, `specta`,
   or `schemars` belongs in a separate backend adapter crate, not in
-  `crates/typebridge`.
+  `crates/typeship`.
 - **Output is a pure function of the input.** `Bridge::render` must be
   deterministic — no clocks, no environment, no map iteration order. This is what
   makes the CI drift check (`Rendered::check`) meaningful.
@@ -40,7 +40,7 @@ These are load-bearing; a change that breaks one needs a strong reason.
 ## Tests
 
 - Unit tests live next to the code they cover.
-- `crates/typebridge/tests/irodori_surface.rs` is the coordination contract with
+- `crates/typeship/tests/irodori_surface.rs` is the coordination contract with
   `irodori-table`. If you change rendering, update it deliberately and explain why
   in the PR — it documents the shape a real consumer depends on.
 

@@ -1,5 +1,5 @@
-use typebridge::{Arg, Bridge, Command, Transport};
-use typebridge::ir::{Field, TsType};
+use typeship::ir::{Field, TsType};
+use typeship::{Arg, Bridge, Command, Transport};
 
 #[test]
 fn tauri_command_uses_snake_case_transport_key_and_camel_payload_keys() {
@@ -17,12 +17,18 @@ fn tauri_command_uses_snake_case_transport_key_and_camel_payload_keys() {
         .with_docs("Run multiple SQL statements as one client action.")
         .render(Transport::Tauri);
 
-    assert!(ts.contains("/** Run multiple SQL statements as one client action. */"), "{ts}");
+    assert!(
+        ts.contains("/** Run multiple SQL statements as one client action. */"),
+        "{ts}"
+    );
     assert!(ts.contains("export function runSqlBatch("), "{ts}");
     assert!(ts.contains("connectionId: string"), "{ts}");
     assert!(ts.contains("scriptId: string | null"), "{ts}");
     assert!(ts.contains("statements: string[]"), "{ts}");
-    assert!(ts.contains("options: { maxRows: number; explain: boolean; }"), "{ts}");
+    assert!(
+        ts.contains("options: { maxRows: number; explain: boolean; }"),
+        "{ts}"
+    );
     assert!(
         ts.contains("return invoke<QueryResult>(\"run_sql_batch\", { connectionId, scriptId, statements, options });"),
         "{ts}"
@@ -33,7 +39,10 @@ fn tauri_command_uses_snake_case_transport_key_and_camel_payload_keys() {
 fn nullary_command_does_not_emit_empty_payload_object() {
     let ts = Command::new("workspace_snapshot", "WorkspaceSnapshot").render(Transport::Tauri);
 
-    assert!(ts.contains("return invoke<WorkspaceSnapshot>(\"workspace_snapshot\");"), "{ts}");
+    assert!(
+        ts.contains("return invoke<WorkspaceSnapshot>(\"workspace_snapshot\");"),
+        "{ts}"
+    );
     assert!(!ts.contains("workspace_snapshot\", {"), "{ts}");
 }
 
@@ -70,9 +79,18 @@ fn bridge_imports_tauri_invoke_once_even_with_many_commands() {
         1,
         "{module}"
     );
-    assert!(module.contains("export function aCommand(): Promise<A>"), "{module}");
-    assert!(module.contains("export function bCommand(): Promise<B>"), "{module}");
-    assert!(module.contains("export function cCommand(): Promise<C>"), "{module}");
+    assert!(
+        module.contains("export function aCommand(): Promise<A>"),
+        "{module}"
+    );
+    assert!(
+        module.contains("export function bCommand(): Promise<B>"),
+        "{module}"
+    );
+    assert!(
+        module.contains("export function cCommand(): Promise<C>"),
+        "{module}"
+    );
 }
 
 #[test]
@@ -94,7 +112,12 @@ fn command_can_return_void_arrays_and_inline_unions() {
     .arg(Arg::rust("include_assets", TsType::boolean()))
     .render(Transport::Tauri);
 
-    assert!(ts.contains("Promise<{ kind: \"ok\"; path: string; } | { kind: \"error\"; message: string; }>"), "{ts}");
+    assert!(
+        ts.contains(
+            "Promise<{ kind: \"ok\"; path: string; } | { kind: \"error\"; message: string; }>"
+        ),
+        "{ts}"
+    );
     assert!(
         ts.contains("return invoke<{ kind: \"ok\"; path: string; } | { kind: \"error\"; message: string; }>(\"export_extension_package\", { extensionId, includeAssets });"),
         "{ts}"

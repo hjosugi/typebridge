@@ -15,7 +15,7 @@
 /// `snake_case` (or `snake_case_id`) to `lowerCamelCase`.
 ///
 /// ```
-/// use typebridge::naming::to_camel_case;
+/// use typeship::naming::to_camel_case;
 /// assert_eq!(to_camel_case("active_connection_id"), "activeConnectionId");
 /// assert_eq!(to_camel_case("latency_ms"), "latencyMs");
 /// assert_eq!(to_camel_case("id"), "id");
@@ -46,7 +46,7 @@ pub fn to_camel_case(input: &str) -> String {
 /// `lowerCamelCase` to `snake_case`.
 ///
 /// ```
-/// use typebridge::naming::to_snake_case;
+/// use typeship::naming::to_snake_case;
 /// assert_eq!(to_snake_case("activeConnectionId"), "active_connection_id");
 /// assert_eq!(to_snake_case("latencyMs"), "latency_ms");
 /// ```

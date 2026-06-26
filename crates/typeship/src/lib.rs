@@ -1,6 +1,6 @@
-//! # typebridge
+//! # typeship
 //!
-//! `typebridge` turns Rust types into a TypeScript API surface — type
+//! `typeship` turns Rust types into a TypeScript API surface — type
 //! declarations, typed command wrappers, and a CI drift-check — without making
 //! Rust look like TypeScript or TypeScript look like Rust.
 //!
@@ -43,8 +43,8 @@
 //! ## Quick start
 //!
 //! ```
-//! use typebridge::{Bridge, Command};
-//! use typebridge::ir::{Decl, Field, TsType};
+//! use typeship::{Bridge, Command};
+//! use typeship::ir::{Decl, Field, TsType};
 //!
 //! let status = Decl::alias(
 //!     "ConnectionStatus",

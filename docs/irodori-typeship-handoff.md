@@ -1,4 +1,4 @@
-# Irodori Typebridge Handoff
+# Irodori Typeship Handoff
 
 Last checked against `/mnt/data/workspace/irodori-table`: 2026-06-22 JST.
 
@@ -24,8 +24,8 @@ The generated file now also includes database connection/query types and wrapper
 
 ## Current Contract
 
-The `crates/typebridge/tests/irodori_surface.rs` test models the current Irodori
-surface through `typebridge`'s IR. It is intentionally a compatibility contract,
+The `crates/typeship/tests/irodori_surface.rs` test models the current Irodori
+surface through `typeship`'s IR. It is intentionally a compatibility contract,
 not a byte-for-byte clone of `ts-rs` formatting.
 
 It covers:
@@ -50,28 +50,28 @@ The Irodori backlog still calls out the same integration path:
    the generation test.
 5. Reuse the same generated surface for future extension SDK contracts.
 
-## Available Now (typebridge side)
+## Available Now (typeship side)
 
 The pieces needed to replace Irodori's inline `ts-rs` test now exist:
 
-- **ts-rs backend adapter** — `crates/typebridge-ts-rs`. `decl::<T>()` lowers any
-  `#[derive(TS)]` type into a `typebridge` declaration; the `Bridge` assembles
+- **ts-rs backend adapter** — `crates/typeship-ts-rs`. `decl::<T>()` lowers any
+  `#[derive(TS)]` type into a `typeship` declaration; the `Bridge` assembles
   ts-rs's type bodies together with typed command wrappers, the optional
   `assertNever` helper, and the header.
-- **CLI driver** — `typebridge::cli::run(&bridge, default_path)` (zero-dependency,
+- **CLI driver** — `typeship::cli::run(&bridge, default_path)` (zero-dependency,
   in the core crate). Gives a generator binary `write` and `check` verbs with
   correct exit codes, so CI drift becomes a failing build.
-- **Runnable example** — `cargo run -p typebridge-ts-rs --example generate -- write
+- **Runnable example** — `cargo run -p typeship-ts-rs --example generate -- write
   <path>` reproduces the Irodori boundary end to end. Its output matches the
   committed `irodori-api.ts` (plus the `assertNever` helper).
 
 ### Migration — applied
 
-Irodori's desktop crate now generates its boundary through typebridge. The change
+Irodori's desktop crate now generates its boundary through typeship. The change
 (in `/mnt/data/workspace/irodori-table`) is:
 
 - `apps/desktop/src-tauri/Cargo.toml` gains two **dev-dependencies** (path deps to
-  this sibling project): `typebridge` and `typebridge-ts-rs`.
+  this sibling project): `typeship` and `typeship-ts-rs`.
 - The `typegen` module in `apps/desktop/src-tauri/src/lib.rs` was rewritten: a
   single `bridge()` builds the whole surface from `decl::<T>()` over all nine Rust
   types plus the four command wrappers. The `export_typescript_bindings` test then

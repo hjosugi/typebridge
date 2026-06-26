@@ -1,6 +1,6 @@
 # Security Policy
 
-typebridge is a developer tool that turns Rust type/command metadata into
+typeship is a developer tool that turns Rust type/command metadata into
 TypeScript source text. It does not run at application runtime and does not
 process end-user data. Please report security issues privately when possible.
 

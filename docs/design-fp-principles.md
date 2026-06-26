@@ -1,6 +1,6 @@
 # Functional Codegen Principles
 
-`typebridge` follows the same broad shape as tools such as `purescript-bridge`,
+`typeship` follows the same broad shape as tools such as `purescript-bridge`,
 `haskell-to-elm`, `servant-foreign`, and serde/aeson-style generic deriving:
 describe the boundary once, treat that description as data, and render a target
 language artifact deterministically.
@@ -52,6 +52,6 @@ backend adapters and docs can use the same warning text.
 
 The core crate does not need to know how `ts-rs`, `specta`, or `schemars`
 discovers Rust types. Those tools can lower Rust types into declaration strings
-or a small intermediate representation. `typebridge` then assembles a complete
+or a small intermediate representation. `typeship` then assembles a complete
 TypeScript module with headers, imports, command wrappers, optional helpers, and
 drift checking.

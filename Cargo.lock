@@ -138,17 +138,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "typebridge"
-version = "0.0.0"
+name = "typeship"
+version = "0.1.0"
 
 [[package]]
-name = "typebridge-ts-rs"
-version = "0.0.0"
+name = "typeship-ts-rs"
+version = "0.1.0"
 dependencies = [
  "serde",
  "serde_json",
  "ts-rs",
- "typebridge",
+ "typeship",
 ]
 
 [[package]]

@@ -1,4 +1,4 @@
-use typebridge::ir::{Decl, Field, TsType};
+use typeship::ir::{Decl, Field, TsType};
 
 #[test]
 fn nested_container_precedence_is_stable() {
@@ -41,7 +41,10 @@ fn inline_objects_with_optional_docs_and_unknowns_are_rendered() {
                 "filters",
                 TsType::array(TsType::object([
                     Field::new("field", TsType::string()),
-                    Field::new("op", TsType::string_literals(["eq", "neq", "in", "between"])),
+                    Field::new(
+                        "op",
+                        TsType::string_literals(["eq", "neq", "in", "between"]),
+                    ),
                     Field::new(
                         "value",
                         TsType::union([
@@ -64,9 +67,15 @@ fn inline_objects_with_optional_docs_and_unknowns_are_rendered() {
 
     let ts = decl.render();
 
-    assert!(ts.contains("/** A realistic search request envelope. */"), "{ts}");
+    assert!(
+        ts.contains("/** A realistic search request envelope. */"),
+        "{ts}"
+    );
     assert!(ts.contains("export interface SearchEnvelope {"), "{ts}");
-    assert!(ts.contains("  /** Stable id for logs. */\n  requestId: string;"), "{ts}");
+    assert!(
+        ts.contains("  /** Stable id for logs. */\n  requestId: string;"),
+        "{ts}"
+    );
     assert!(ts.contains("  filters?: { field: string; op: \"eq\" | \"neq\" | \"in\" | \"between\"; value: string | number | boolean | string[]; }[];"), "{ts}");
     assert!(
         ts.contains("  metadata: Record<string, unknown | null>;"),
@@ -83,7 +92,10 @@ fn raw_declaration_is_preserved_as_a_backend_seam() {
 
     let ts = raw.render();
 
-    assert!(ts.starts_with("export type ExternalPluginMessage ="), "{ts}");
+    assert!(
+        ts.starts_with("export type ExternalPluginMessage ="),
+        "{ts}"
+    );
     assert!(ts.contains("| { kind: \"ready\" }"), "{ts}");
     assert!(ts.ends_with(";\n"), "{ts:?}");
 }
@@ -91,7 +103,10 @@ fn raw_declaration_is_preserved_as_a_backend_seam() {
 #[test]
 fn empty_unions_stay_never_instead_of_any_or_unknown() {
     assert_eq!(TsType::union(Vec::<TsType>::new()).render(), "never");
-    assert_eq!(TsType::string_literals(Vec::<String>::new()).render(), "never");
+    assert_eq!(
+        TsType::string_literals(Vec::<String>::new()).render(),
+        "never"
+    );
 
     let decl = Decl::alias("Impossible", TsType::union(Vec::<TsType>::new()));
     assert_eq!(decl.render(), "export type Impossible = never;\n");

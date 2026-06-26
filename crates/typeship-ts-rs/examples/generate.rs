@@ -1,7 +1,7 @@
-//! End-to-end example: ts-rs types + typebridge commands + the CLI driver.
+//! End-to-end example: ts-rs types + typeship commands + the CLI driver.
 //!
 //! This is the shape a consumer (e.g. `irodori-table`) would wire up. The Rust
-//! types are the single source of truth; ts-rs renders them; typebridge assembles
+//! types are the single source of truth; ts-rs renders them; typeship assembles
 //! the module and the CLI gives you `write` / `check`.
 //!
 //! Try it:
@@ -16,8 +16,8 @@
 use std::process::ExitCode;
 
 use ts_rs::TS;
-use typebridge::{Bridge, Command};
-use typebridge_ts_rs::decl;
+use typeship::{Bridge, Command};
+use typeship_ts_rs::decl;
 
 #[derive(TS)]
 #[ts(rename_all = "lowercase")]
@@ -77,5 +77,5 @@ fn main() -> ExitCode {
         .decl(&decl::<WorkspaceSnapshot>())
         .command(Command::new("workspace_snapshot", "WorkspaceSnapshot"));
 
-    typebridge::cli::run(&bridge, "irodori-api.ts")
+    typeship::cli::run(&bridge, "irodori-api.ts")
 }

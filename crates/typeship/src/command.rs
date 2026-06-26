@@ -20,7 +20,7 @@ pub enum Transport {
     /// Tauri `invoke("cmd", args)` from `@tauri-apps/api/core`.
     Tauri,
     /// A generic async `request("cmd", args)` helper the consumer supplies — a
-    /// seam for HTTP / WebSocket transports without committing typebridge to one.
+    /// seam for HTTP / WebSocket transports without committing typeship to one.
     Fetch,
 }
 
@@ -87,7 +87,7 @@ impl Command {
     /// A command named `rust_name` returning the named type `ret_type`.
     ///
     /// ```
-    /// use typebridge::Command;
+    /// use typeship::Command;
     /// let cmd = Command::new("workspace_snapshot", "WorkspaceSnapshot");
     /// assert_eq!(cmd.ts_name(), "workspaceSnapshot");
     /// ```
