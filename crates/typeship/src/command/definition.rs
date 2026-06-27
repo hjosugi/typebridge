@@ -1,41 +1,8 @@
-//! Typed command wrappers — the part `ts-rs` and friends do *not* generate.
-//!
-//! Per-type renderers stop at data shapes. But a Tauri app (or any RPC client)
-//! also needs the *verbs*: a typed `invoke` wrapper per command so the frontend
-//! never hand-writes `invoke("workspace_snapshot")` with a stringly-typed name and
-//! an untyped result. This is the same move `servant-foreign` makes in Haskell —
-//! derive the client functions from the same source the types come from.
-//!
-//! A [`Command`] pairs a Rust command name (`snake_case`, used verbatim as the
-//! `invoke` key) with a return type and ordered arguments. The generated function
-//! name is the naming-iso image of the command name (`workspace_snapshot` →
-//! `workspaceSnapshot`).
-
 use crate::ir::TsType;
 use crate::naming::to_camel_case;
 use crate::ts::{doc_comment, string_literal};
 
-/// How a [`Command`] reaches the backend.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Transport {
-    /// Tauri `invoke("cmd", args)` from `@tauri-apps/api/core`.
-    Tauri,
-    /// A generic async `request<T>("cmd", args)` helper the consumer supplies — a
-    /// seam for HTTP / WebSocket transports without committing typeship to one.
-    Fetch,
-}
-
-impl Transport {
-    /// The import line a [`crate::bridge::Bridge`] should emit for this transport,
-    /// if any.
-    pub(crate) fn import_line(self) -> Option<&'static str> {
-        match self {
-            Transport::Tauri => Some("import { invoke } from \"@tauri-apps/api/core\";"),
-            // The consumer wires `request` to their own client; no fixed import.
-            Transport::Fetch => None,
-        }
-    }
-}
+use super::Transport;
 
 /// A single argument to a command. The `name` is the wire (camelCase) key.
 #[derive(Clone, Debug, PartialEq, Eq)]
