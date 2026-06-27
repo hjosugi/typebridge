@@ -47,11 +47,13 @@ assert!(ts.contents.contains(
   backend adapter. `decl::<T>()` lowers a `#[derive(TS)]` type into a typeship
   declaration. A `specta` / `schemars` adapter could sit alongside it.
 - `samples/basic-ir` — a transport-agnostic project operations API generated
-  from hand-built `typeship` IR, including closed unions, inline objects,
-  records, optional fields, nullable values, and `bigint` counters.
+  from hand-built `typeship` IR, including project filters, milestone reports,
+  bulk status updates, audit events, inline objects, records, optional fields,
+  nullable values, and `bigint` counters.
 - `samples/tauri-ts-rs` — a Tauri-style desktop data-workbench API generated
   from `ts-rs` derives plus command metadata. It covers connection profiles,
-  environment grouping, query execution, import preview, and dashboard snapshots.
+  environment grouping, query execution, import preview, saved dashboard
+  layouts, dashboard widgets, filters, metric snapshots, and export commands.
 
 ## Use outside irodori-table
 

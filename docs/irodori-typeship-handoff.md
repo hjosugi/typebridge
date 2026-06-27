@@ -67,9 +67,11 @@ The pieces needed to replace Irodori's inline `ts-rs` test now exist:
   in the core crate). Gives a generator binary `write` and `check` verbs with
   correct exit codes, so CI drift becomes a failing build.
 - **Runnable examples** — `samples/basic-ir` now models a transport-agnostic
-  project operations API, while `samples/tauri-ts-rs` models a desktop
-  data-workbench boundary with connections, query execution, import preview, and
-  dashboard metrics. These are intentionally not Irodori-only samples.
+  project operations API with milestone reports, bulk status updates, audit
+  events, and analytics snapshots. `samples/tauri-ts-rs` models a desktop
+  data-workbench boundary with connections, query execution, import preview,
+  recent history, saved dashboard layouts, widgets, filters, metric snapshots,
+  and export commands. These are intentionally not Irodori-only samples.
 
 ### Migration — applied
 

@@ -220,11 +220,9 @@ fn build_bridge() -> Bridge {
                 .arg(Arg::new("includeAudit", TsType::boolean()).optional()),
         )
         .command(
-            Command::returning("tasks_bulk_update", TsType::array(TsType::named("Task")))
-                .arg(Arg::new(
-                    "updates",
-                    TsType::array(TsType::named("BulkStatusChange")),
-                )),
+            Command::returning("tasks_bulk_update", TsType::array(TsType::named("Task"))).arg(
+                Arg::new("updates", TsType::array(TsType::named("BulkStatusChange"))),
+            ),
         )
         .command(
             Command::new("analytics_snapshot", "AnalyticsSnapshot")
