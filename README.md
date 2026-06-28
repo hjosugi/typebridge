@@ -159,4 +159,12 @@ configured in the GitHub repository secrets.
 
 ## License
 
-Licensed under either MIT or 0BSD.
+Irodori-authored code in this repository is available under `MIT OR 0BSD` unless
+a file says otherwise. See [LICENSE](LICENSE).
+
+## Disclaimer
+
+`typeship` generates TypeScript bindings from Rust APIs, but generated code
+still needs review before publishing or wiring into release checks. For the
+broader Irodori product disclaimer, see
+<https://hjosugi.github.io/irodori-docs/disclaimer.html>.
