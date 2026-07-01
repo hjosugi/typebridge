@@ -1,6 +1,6 @@
 //! Where encode/decode symmetry breaks.
 //!
-//! A type bridge is only sound if the wire shape the Rust side *writes* is the
+//! Typeship is only sound if the wire shape the Rust side *writes* is the
 //! wire shape the TypeScript side is told to *read* — `decode . encode = id`. A
 //! handful of serde attributes quietly break that symmetry: they change the JSON
 //! without changing the type's nominal structure, so a naive renderer emits TS
